@@ -793,7 +793,6 @@ class SimPagedMemory(object):
 
         # Set permissions for the page
         if permissions is not None:
-            
             if isinstance(permissions, (int, long)):
                 permissions = claripy.BVV(permissions, 3)
 
