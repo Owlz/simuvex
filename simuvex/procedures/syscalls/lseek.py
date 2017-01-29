@@ -6,8 +6,6 @@ class lseek(simuvex.SimProcedure):
 
     def run(self, fd, seek, whence): #pylint:disable=arguments-differ,unused-argument
 
-        print(fd,seek,whence)
-
         if self.state.se.symbolic(whence):
             err = "Symbolic whence is not supported in lseek syscall."
             l.error(err)
