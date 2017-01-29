@@ -1,5 +1,8 @@
 import simuvex
 
+import logging
+l = logging.getLogger('simuvex.procedures.syscalls.lseek')
+
 class lseek(simuvex.SimProcedure):
 
     IS_SYSCALL = True
@@ -31,4 +34,3 @@ class lseek(simuvex.SimProcedure):
 
         # To be compliant, we must return the current position on success
         return self.state.posix.pos(fd)
-
