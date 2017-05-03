@@ -149,9 +149,25 @@ class SimFile(SimStatePlugin):
         return data
 
     # Writes some data to the current position of the file.
-    def write(self, content, length):
-        # TODO: something about length
+    def write(self, content, length=None):
         # TODO: check file close status
+
+        # Attempt to auto-detect length if not provided
+        if not length:
+
+            if type(content) == claripy.ast.bv.BV:
+                length = len(content) / 8
+
+                if len(content) % 8 != 0:
+                    l.warn("Writing size not a multiple of a byte. Rounding up.")
+                    length += 1
+
+            elif type(content) == str:
+                length = len(content)
+
+            else:
+                l.error("Unable to determine correct length of input. Please specify.")
+                return
 
         self.content.store(self.pos, content)
         self.write_pos += _deps_unpack(length)[0]
